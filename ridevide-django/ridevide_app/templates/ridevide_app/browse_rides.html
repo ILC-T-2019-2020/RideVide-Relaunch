@@ -1,0 +1,85 @@
+{% extends 'ridevide_app/base.html' %}
+
+{% block extra_head %}
+
+    <!-- Custom CSS for the '3 Col Portfolio' Template -->
+    <link href="/static/css/3-col-portfolio.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+            <br>
+            <h1 class="text-center">{{ heading }}</h1>
+        </div>
+
+        {% for ride_group in formatted_rides %}
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <h1 class="page-header">{{ ride_group.0.date }}
+                    </h1>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                {% for ride in ride_group %}
+                    <a href="/browse/{{ ride.id }}">
+                        <div class="col-md-4 portfolio-item ride_block {% if ride.riders.count >= 4 %} full_ride {% else %} available_ride {% endif %}">
+                            <!--<a href="#project-link">
+                                <img class="img-responsive" src="http://placehold.it/700x400">
+                            </a>-->
+                            <div class="ride_details">
+                                <h3>{{ ride.departure }} -> {{ ride.destination }}
+                                </h3>
+                                <p>{{ ride.time }}</p>
+                            </div>
+                            <div class="ride_riders">
+                                <h2>{{ ride.riders.count }}/4</h2>
+                            </div>
+                        </div>
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+        <!--
+        <hr>
+
+        <div class="row text-center">
+
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    <li><a href="#">&laquo;</a>
+                    </li>
+                    <li class="active"><a href="#">1</a>
+                    </li>
+                    <li><a href="#">2</a>
+                    </li>
+                    <li><a href="#">3</a>
+                    </li>
+                    <li><a href="#">4</a>
+                    </li>
+                    <li><a href="#">5</a>
+                    </li>
+                    <li><a href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
