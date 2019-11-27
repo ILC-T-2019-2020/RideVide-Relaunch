@@ -1,7 +1,9 @@
 from django import forms
 from bootstrap3_datetime.widgets import DateTimePicker
 
-TIME_INPUT_FORMATS = ['%H:%M', '%I:%M%p', '%I:%M %p']
+TIME_INPUT_FORMATS = ['%H:%M', '%I : %M %p']
+
+LUGGAGE_NUMBER_CHOICES = [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4)]
 
 CAMPUS_LOCATION_CHOICES = [('Campus', 'Campus'),
                           ]
@@ -13,15 +15,16 @@ OFF_CAMPUS_LOCATION_CHOICES = [("O'Hare Airport", "O'Hare Airport"),
 
 ALL_LOCATION_CHOICES = [('All', 'All')] + CAMPUS_LOCATION_CHOICES + OFF_CAMPUS_LOCATION_CHOICES
 
+
 class AddRideForm(forms.Form):
     date = forms.DateField(
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False,
-                                      }))
+                                       "pickTime": False,}))
     time = forms.TimeField(
-        widget=DateTimePicker(options={"pickDate": False,
-                                      }),
         input_formats=TIME_INPUT_FORMATS)
+
+    luggage = forms.ChoiceField(choices=LUGGAGE_NUMBER_CHOICES)
+
 
 class AddFromCampusRideForm(AddRideForm):
     #departure = forms.ChoiceField(

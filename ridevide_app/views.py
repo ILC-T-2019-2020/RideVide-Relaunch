@@ -36,11 +36,11 @@ def index(request):
     else:
         return render(request, "ridevide_app/landing.html")
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def browse(request):
     return render(request, "ridevide_app/browse.html")
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def browse_detail(request, ride_id):
     ride = get_object_or_404(Ride, pk=ride_id)
     today = datetime.date.today()
@@ -50,7 +50,7 @@ def browse_detail(request, ride_id):
         archived = False
     return render(request, "ridevide_app/browse_detail.html", dict(ride=ride, ride_id=ride_id, archived=archived))
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def add_user_to_ride(request, ride_id):
     error = ''
     ride = get_object_or_404(Ride, pk=ride_id)
@@ -62,7 +62,7 @@ def add_user_to_ride(request, ride_id):
             return render(request, "ridevide_app/browse_detail.html", dict(ride=ride, ride_id=ride_id, error=error))
     return redirect("/browse/%d" % int(ride_id))
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def delete_user_from_ride(request, ride_id):
     ride = get_object_or_404(Ride, pk=ride_id)
     if request.method == 'POST':
@@ -81,19 +81,19 @@ def browse_rides(request, rides, heading):
         formatted_rides.append(tmp_rides)
     return render(request, "ridevide_app/browse_rides.html", dict(heading=heading, formatted_rides=formatted_rides))
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def browse_from_campus(request):
     today = datetime.date.today().strftime('%Y-%m-%d')
     from_campus_rides = Ride.objects.filter(from_campus=True, date__gte=today).order_by('date')
     return browse_rides(request, from_campus_rides, "Browse Rides from Campus")
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def browse_to_campus(request):
     today = datetime.date.today().strftime('%Y-%m-%d')
     to_campus_rides = Ride.objects.filter(from_campus=False, date__gte=today).order_by('date')
     return browse_rides(request, to_campus_rides, "Browse Rides to Campus")
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def search(request):
     if request.method == 'POST':
         form = forms.FilterRidesForm(request.POST)
@@ -113,17 +113,18 @@ def search(request):
         form = forms.FilterRidesForm()
         return render(request, "ridevide_app/search.html", dict(form=form))
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def add(request):
     return render(request, "ridevide_app/add.html")
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def add_from_campus(request):
     if request.method == 'POST':
         form = forms.AddFromCampusRideForm(request.POST)
         if form.is_valid():
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
+            luggage = form.cleaned_data['luggage']
             departure = 'Campus' #form.cleaned_data['departure']
             destination = form.cleaned_data['destination']
             today = datetime.date.today()
@@ -131,7 +132,7 @@ def add_from_campus(request):
                 error = 'Cannot enter a date in the past.'
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             if eligibleForRide(request, date, time):
-                r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
+                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, from_campus=True)
                 r.save()
                 profile = request.user.profile
                 r.riders.add(profile)
@@ -145,13 +146,14 @@ def add_from_campus(request):
         form = forms.AddFromCampusRideForm()
         return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus"))
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def add_to_campus(request):
     if request.method == 'POST':
         form = forms.AddToCampusRideForm(request.POST)
         if form.is_valid():
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
+            luggage = form.cleaned_data['luggage']
             departure = form.cleaned_data['departure']
             destination = 'Campus' #form.cleaned_data['destination']
             today = datetime.date.today()
@@ -159,7 +161,7 @@ def add_to_campus(request):
                 error = 'Cannot enter a date in the past.'
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             if eligibleForRide(request, date, time):
-                r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
+                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, from_campus=False)
                 r.save()
                 profile = request.user.profile
                 r.riders.add(profile)
@@ -173,9 +175,11 @@ def add_to_campus(request):
         form = forms.AddToCampusRideForm()
         return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride to Campus"))
 
-@login_required(login_url='/')
+
+# @login_required(login_url='/')
 def contact(request):
     return render(request, "ridevide_app/contact.html")
+
 
 def stats(request):
     total_rides = Ride.objects.all()
@@ -198,7 +202,7 @@ def stats(request):
     users = UserProfile.objects.all()
     return render(request, "ridevide_app/stats.html", dict(total_rides=total_rides, completed_rides=completed_rides, upcoming_rides=upcoming_rides, users=users, completed_rides_with_more_than_2_riders=completed_rides_with_more_than_2_riders, completed_rides_with_more_than_3_riders=completed_rides_with_more_than_3_riders, completed_rides_with_4_riders=completed_rides_with_4_riders))
 
-@login_required(login_url='/')
+# @login_required(login_url='/')
 def archives(request):
     rides = Ride.objects.order_by('date')
     return browse_rides(request, rides, "Archived Rides")
