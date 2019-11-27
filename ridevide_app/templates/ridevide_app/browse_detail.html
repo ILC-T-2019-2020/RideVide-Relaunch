@@ -53,7 +53,7 @@
 				<form action="/delete_rider/{{ ride_id }}/" method="post">
 					{% csrf_token %}
 					<p>
-						<a href="{{ rider.get_url }}" target="_blank">{{ rider.user.first_name }} {{ rider.user.last_name }}</a>
+						{{ rider.user.first_name }} {{ rider.user.last_name }} <a href = "mailto:"{{ rider.user.email }}>{{ rider.user.email }}</a>
 						{% if request.user == rider.user and not archived %}
 							<input type="submit" value="X" class="btn btn-sm btn-danger">
 						{% endif %}
