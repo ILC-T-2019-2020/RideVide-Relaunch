@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.models import SocialAccount
 
 class UserProfile(models.Model):
-    
+
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
 
     def __unicode__(self):
