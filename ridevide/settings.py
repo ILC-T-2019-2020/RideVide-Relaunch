@@ -22,8 +22,6 @@ SECRET_KEY = '1i)o7cnf**l1ntr9i*c!2x3$t58g8l8qwgv+x-^ifnziu=fur)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = DEBUG
-
 ALLOWED_HOSTS = []
 
 
@@ -112,9 +110,21 @@ STATICFILES_DIRS = (
 )
 
 # Templates
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, '../ridevide_app/templates/ridevide_app'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS':
+        [os.path.join(BASE_DIR, '../ridevide_app/templates/ridevide_app')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                "django.core.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+            ],
+        },
+    },
+]
+
 
 ### DJANGO-ALLAUTH STUFF
 
@@ -123,11 +133,6 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by e-mail
     "allauth.account.auth_backends.AuthenticationBackend"
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.request",
-    "django.contrib.auth.context_processors.auth",
 )
 
 # auth and allauth settings
