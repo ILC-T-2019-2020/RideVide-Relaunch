@@ -140,10 +140,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SOCIAL_AUTH_FACEBOOK_KEY = "427040198233307"        # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = "6634cff091c2b5e9a8477f627ec7e5f4"  # App Secret
-
-
 SITE_ID = 3
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
