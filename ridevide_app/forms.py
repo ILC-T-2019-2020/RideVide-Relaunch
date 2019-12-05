@@ -20,7 +20,10 @@ class AddRideForm(forms.Form):
     date = forms.DateField(
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,}))
-    time = forms.TimeField(
+    time_lower = forms.TimeField(
+        input_formats=TIME_INPUT_FORMATS)
+    
+    time_upper = forms.TimeField(
         input_formats=TIME_INPUT_FORMATS)
 
     luggage = forms.ChoiceField(choices=LUGGAGE_NUMBER_CHOICES)
