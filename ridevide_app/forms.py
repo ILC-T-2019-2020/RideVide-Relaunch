@@ -23,17 +23,6 @@ class AddRideForm(forms.Form):
                                       }),
         input_formats=TIME_INPUT_FORMATS)
 
-class AddFlightForm(forms.Form):
-    date = forms.DateField(
-        required=True,
-        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False,
-                                       }))
-
-    flight = forms.CharField(required=True, label='Flight Number (i.e. UA660)')
-    from_chicago = forms.BooleanField(initial=False)
-
-
 class AddFromCampusRideForm(AddRideForm):
     #departure = forms.ChoiceField(
     #    choices=CAMPUS_LOCATION_CHOICES)
