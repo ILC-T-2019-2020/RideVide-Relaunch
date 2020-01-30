@@ -1,0 +1,37 @@
+{% extends 'ridevide_app/base.html' %}
+
+{% block extra_head %}
+
+        <!-- Custom CSS for the '3 Col Portfolio' Template -->
+        <link href="/static/css/3-col-portfolio.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+        <div class="container">
+
+                <div class="row">
+                        <br>
+                        <h1 class="text-center">
+                                Search Results</h1>
+                </div>
+
+                <div class="ride_detail_container">
+                        <h3 class="text-center">
+                                Oops, there are not rides available at this time.
+                                <br>
+                                Maybe try leaving at a different time?
+                                <br><br><br><br>
+                        </h3>
+                </div>
+                <div class="text-center">
+                        <a href="/search">
+                                Click here to go back to search page
+                        </a>
+                </div>
+
+        </div>
+        <!-- /.container -->
+
+{% endblock %}
