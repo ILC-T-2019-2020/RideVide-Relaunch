@@ -99,3 +99,6 @@ def scrape(page, flight_number, date):
             if from_chicago else (expec_arr if len(expec_arr) == 9 else sched_arr)
     }
     return to_return
+
+d = datetime.date(2020, 1, 30)
+print(information("UA340", d, True))
