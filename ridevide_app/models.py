@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from allauth.socialaccount.models import SocialAccount
 
 class UserProfile(models.Model):
-    
+
     user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
 
     def __unicode__(self):
@@ -32,8 +32,7 @@ class Ride(models.Model):
     departure = models.CharField(max_length=200)
     destination = models.CharField(max_length=200)
     date = models.DateField()
-    time_from = models.TimeField()
-    time_upper = models.TimeField()
+    time = models.TimeField()
     luggage = models.PositiveIntegerField()
     riders = models.ManyToManyField(UserProfile)
     from_campus = models.BooleanField()

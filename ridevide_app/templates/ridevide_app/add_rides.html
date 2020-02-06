@@ -30,34 +30,19 @@
 						</div>
 					</div>
 				{% endfor %}
-            <div id="timePicker">
-                <link rel="stylesheet" type="text/css" href="/static/css/wickedpicker.css">
-                <script type="text/javascript" src="/static/js/wickedpicker.js"></script>
-                <script type="text/javascript">
-                    const options = {
-                        now: "12:00",
-                        title: "Time",
-                        minutesInterval: 15
-                    };
-                    $('#id_time').wickedpicker(options);
-                </script>
-						</div>
-						<div id="timePicker">
-							<link rel="stylesheet" type="text/css" href="/static/css/wickedpicker.css">
-							<script type="text/javascript" src="/static/js/wickedpicker.js"></script>
-							<script type="text/javascript">
-									const options = {
-											now: "12:00",
-											title: "Time",
-											minutesInterval: 15
-									};
-									$('#id_time').wickedpicker(options);
-							</script>
-					</div>
 
-
-
-
+				<div id="timePicker">
+					<link rel="stylesheet" type="text/css" href="/static/css/wickedpicker.css">
+					<script type="text/javascript" src="/static/js/wickedpicker.js"></script>
+					<script type="text/javascript">
+						const options = {
+							now: "12:00",
+							title: "Time",
+							minutesInterval: 15
+						};
+						$('#id_time').wickedpicker(options);
+					</script>
+				</div>
 
 				{% for hidden in forms.hidden_fields %}
 					{{ hidden }}

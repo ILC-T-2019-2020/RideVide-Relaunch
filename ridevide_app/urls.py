@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 from ridevide_app import views
 
 urlpatterns = [
