@@ -1,0 +1,3 @@
+*.sqlite3
+*.DS_Store
+ridevide_app/__pycache__/*
