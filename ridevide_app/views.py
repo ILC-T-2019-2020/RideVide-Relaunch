@@ -128,6 +128,7 @@ def add_from_campus(request):
         if form.is_valid():
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
+            luggage = form.cleaned_data['luggage']
             departure = 'Campus' #form.cleaned_data['departure']
             destination = form.cleaned_data['destination']
             today = datetime.date.today()
@@ -135,7 +136,7 @@ def add_from_campus(request):
                 error = 'Cannot enter a date in the past.'
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             if eligibleForRide(request, date, time):
-                r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=True)
+                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, from_campus=False)
                 r.save()
                 profile = request.user.profile
                 r.riders.add(profile)
@@ -156,6 +157,7 @@ def add_to_campus(request):
         if form.is_valid():
             date = form.cleaned_data['date']
             time = form.cleaned_data['time']
+            luggage = form.cleaned_data['luggage']
             departure = form.cleaned_data['departure']
             destination = 'Campus' #form.cleaned_data['destination']
             today = datetime.date.today()
@@ -163,7 +165,7 @@ def add_to_campus(request):
                 error = 'Cannot enter a date in the past.'
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             if eligibleForRide(request, date, time):
-                r = Ride(date=date, time=time, departure=departure, destination=destination, from_campus=False)
+                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, from_campus=False)
                 r.save()
                 profile = request.user.profile
                 r.riders.add(profile)
