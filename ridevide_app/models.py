@@ -34,6 +34,7 @@ class Ride(models.Model):
     date = models.DateField()
     time = models.TimeField()
     luggage = models.PositiveIntegerField()
+    flight_number = models.CharField(max_length=200)
     riders = models.ManyToManyField(UserProfile)
     from_campus = models.BooleanField()
 

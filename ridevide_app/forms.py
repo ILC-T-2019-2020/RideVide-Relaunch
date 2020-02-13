@@ -25,6 +25,8 @@ class AddRideForm(forms.Form):
 
     luggage = forms.ChoiceField(choices=LUGGAGE_NUMBER_CHOICES)
 
+    flight_number = forms.CharField()
+
 class AddFromCampusRideForm(AddRideForm):
     #departure = forms.ChoiceField(
     #    choices=CAMPUS_LOCATION_CHOICES)

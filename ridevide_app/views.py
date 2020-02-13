@@ -131,12 +131,13 @@ def add_from_campus(request):
             luggage = form.cleaned_data['luggage']
             departure = 'Campus' #form.cleaned_data['departure']
             destination = form.cleaned_data['destination']
+            flight_number = form.cleaned_data['flight_number']
             today = datetime.date.today()
             if date < today:
                 error = 'Cannot enter a date in the past.'
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             if eligibleForRide(request, date, time):
-                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, from_campus=False)
+                r = Ride(date=date, time=time, luggage=luggage, departure=departure, destination=destination, flight_number=flight_number, from_campus=False)
                 r.save()
                 profile = request.user.profile
                 r.riders.add(profile)
@@ -160,12 +161,13 @@ def add_to_campus(request):
             luggage = form.cleaned_data['luggage']
             departure = form.cleaned_data['departure']
             destination = 'Campus' #form.cleaned_data['destination']
+            flight_number = form.cleaned_data['flight_number']
             today = datetime.date.today()
             if date < today:
                 error = 'Cannot enter a date in the past.'
                 return render(request, "ridevide_app/add_rides.html", dict(form=form, heading="Add Ride from Campus", error=error))
             if eligibleForRide(request, date, time):
-                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, from_campus=False)
+                r = Ride(date=date, time=time, luggage = luggage, departure=departure, destination=destination, flight_number=flight_number, from_campus=False)
                 r.save()
                 profile = request.user.profile
                 r.riders.add(profile)

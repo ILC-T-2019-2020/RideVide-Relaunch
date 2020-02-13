@@ -53,6 +53,12 @@
 			<h3>Destination</h3>
 			<p>{{ ride.destination }}</p>
 
+			<h3>Luggage Count</h3>
+			<p>{{ ride.luggage }}</p>
+
+			<h3>Flight Number</h3>
+			<p>{{ ride.flight_number }}</p>
+
 			<h3>Riders</h3>
 			{% for rider in ride.riders.all %}
 				<form action="/delete_rider/{{ ride_id }}/" method="post">
